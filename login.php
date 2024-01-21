@@ -1,6 +1,7 @@
 <?php
- session_start();
- echo '
+require "./global.php";
+session_start();
+echo '
      <!DOCTYPE html>
      <html lang="en">
      <head>
@@ -18,16 +19,16 @@
                  <label for="password">Password:</label>
                  <input type="password" id="password" name="user_password" placeholder="Enter your password" >
                  <button type="submit">LOG IN</button>
-                 <a href="http://localhost/facebook/signin.php"><h6>Dont Have Any Account?</h6></a>
+                 <a href='.$baseURL."signin.php".'><h6>Dont Have Any Account?</h6></a>
              </form>
          </div>
       
      </body>
      
      </html>';
- ?>
- <a href="http://localhost/facebook/">
-     <?php
-     require_once "./error_viewing.php";
-     ?>
- </a>
+?>
+<a href="<?php echo $baseURL?>
+    <?php
+    require_once "./error_viewing.php";
+    ?>
+</a>

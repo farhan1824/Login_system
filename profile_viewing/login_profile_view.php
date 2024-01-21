@@ -1,5 +1,6 @@
 <?php
 require "../pdo.php";
+require "../global.php";
 $userobj = $_GET["useremail"];
 $user_email = base64_decode($userobj);
 $query = "SELECT * FROM signin WHERE user_email = :user_email;";
@@ -23,7 +24,7 @@ if ($stmt->execute()) {
             $sending_mail = $_SESSION["gmail_token"];
         }
     } else {
-        header("lcoation:http://localhost/facebook/");
+        header("lcoation:{$baseURL}");
     }
 }
 ?>
@@ -43,12 +44,12 @@ if ($stmt->execute()) {
 <body>
     <div class="hero  bg-base-200">
         <div class="hero-content text-center">
-        <!-- <button class="btn btn-warning">Warning</button> -->
+            <!-- <button class="btn btn-warning">Warning</button> -->
             <div class="max-w-md">
-                <?php 
-                 echo '<a href="../notification.php" class="btn btn-warning">Notifications</a>';
+                <?php
+                echo '<a href="../notification.php" class="btn btn-warning">Notifications</a>';
                 if (isset($Picture)) {
-                   
+
                     echo '<img src="../upload_images/' . $Picture . '" class="shadow" alt=" " width="400px"> ';
                 } ?>
                 <h1 class="text-2xl font-bold">Username:
@@ -73,22 +74,21 @@ if ($stmt->execute()) {
                     <?php echo $Mobile_number ?>
                 </p>
 
-                <form action="../form_handel/request_form_handel.php?signname=<?php echo $req_send ?>&mail=<?php echo $sending_mail ?>"
+                <form
+                    action="../form_handel/request_form_handel.php?signname=<?php echo $req_send ?>&mail=<?php echo $sending_mail ?>"
                     method="POST">
                     <input type="email" placeholder="Type Users Email for Seacrching Your Friend" name="search_user"
                         class="input input-bordered w-full max-w-xs" />
                     <button class="btn btn-warning" type="submit">search</button>
                 </form>
 
-
-
-                <a href="http://localhost/facebook/edit_profile/delete.php?gmail=<?php echo $sending_mail ?>"
+                <a href='<?php echo $baseURL ?>edit_profile/delete.php?gmail=<?php echo $sending_mail ?>'
                     class="btn btn-secondary">delete</a>
 
-                <a href="http://localhost/facebook/edit_profile/update.php?gmail=<?php echo $sending_mail ?>"
+                <a href="<?php echo $baseURL ?>edit_profile/update.php?gmail=<?php echo $sending_mail ?>"
                     class="btn btn-secondary">Update</a>
 
-                <a href="http://localhost/facebook/logout.php" class="btn btn-primary">Log Out</a>
+                <a href="<?php echo $baseURL ?>logout.php" class="btn btn-primary">Log Out</a>
             </div>
         </div>
     </div>

@@ -11,6 +11,7 @@
 <body>
     <?php
     require "../pdo.php";
+    require "../global.php";
     $usernum = $_GET["gmail"];
     $mail = base64_decode($usernum);
     echo $mail;
@@ -124,7 +125,7 @@ $_SESSION["updated_mail"]=base64_encode($user_email);
             // Check if the file was successfully uploaded
             if (!$upload) {
                 // Handle the case where the file upload failed
-                header("location: http://localhost/facebook/edit_profile/update.php?gmail=" . $_SESSION["updated_mail"] . "&error=pic_not_uploaded");
+                header("location: {$baseURL}edit_profile/update.php?gmail=" . $_SESSION["updated_mail"] . "&error=pic_not_uploaded");
                 exit();
             }
         } else {
@@ -151,11 +152,11 @@ $_SESSION["updated_mail"]=base64_encode($user_email);
         $stmt_update->bindParam(":Bio", $Bio);
 
         if ($stmt_update->execute()) {
-            header("location: http://localhost/facebook/profile_viewing/login_profile_view.php?useremail=" . $_SESSION["updated_mail"]);
+            header("location: {$baseURL}profile_viewing/login_profile_view.php?useremail=" . $_SESSION["updated_mail"]);
             exit();
         }
         else{
-            header("location: http://localhost/facebook/edit_profile/update.php?gmail=" . $_SESSION["updated_mail"] . "&error=not_updated");
+            header("location: {$baseURL}edit_profile/update.php?gmail=" . $_SESSION["updated_mail"] . "&error=not_updated");
             exit();
         }
     }

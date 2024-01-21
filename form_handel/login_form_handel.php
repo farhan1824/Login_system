@@ -1,6 +1,7 @@
 <?php
 require "../pdo.php";
 require "../query/login_query.php";
+require "../global.php";
 session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // $singin_id  = $_POST["singin_id"];
@@ -9,11 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo $user_email,$user_password;
     try {
         if(empty($user_email)||empty($user_password)){
-            header("location:http://localhost/facebook/?error=input_empty");
+            header("location:{$baseURL}?error=input_empty");
         }
-       elseif(user_exists($pdo,$user_email, $user_password)){
+       elseif(user_exists($pdo,$user_email, $user_password,$baseURL)){
         $_SESSION["gmail_token"] = base64_encode($user_email);
-        header("Location: http://localhost/facebook/profile_viewing/login_profile_view.php?useremail={$_SESSION['gmail_token']}");
+        header("Location:{$baseURL}profile_viewing/login_profile_view.php?useremail={$_SESSION['gmail_token']}");
         exit();
         }   
     } catch (PDOException $e) {
@@ -21,5 +22,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 else {
-    header("location:http://localhost/facebook/");
+    header("location:{$baseURL}");
 }

@@ -1,6 +1,7 @@
 <?php
 require "../query/signin_query.php";
 require "../pdo.php";
+require "../global.php";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // $singin_id  = $_POST["singin_id"];
     $username = $_POST["username"];
@@ -36,32 +37,32 @@ $C_Password = $_POST["C_Password"];
     echo $username;
     try {
         if (empty_input($username,$user_email,$Fullname, $Birthday, $Gender, $Mobile_number, $Bio, $Picture)) {
-            header("location:http://localhost/facebook/signin.php?error=input_empty");
+            header("location:{$baseURL}signin.php?error=input_empty");
             exit();
         } 
         elseif (is_username_already_registered($pdo,$username)) {
-            header("location:http://localhost/facebook/signin.php?error=username_already_exists");
+            header("location:{$baseURL}signin.php?error=username_already_exists");
             exit();
         } 
         elseif (email_validation($user_email)) {
-            header("location:http://localhost/facebook/signin.php?error=email_invalid");
+            header("location:{$baseURL}signin.php?error=email_invalid");
             exit();
         } 
         elseif (is_email_already_registered($pdo,$user_email)) {
-            header("location:http://localhost/facebook/signin.php?error=email_already_exists");
+            header("location:{$baseURL}signin.php?error=email_already_exists");
             exit();
         } 
         elseif (password_match($Password, $C_Password)) {
-            header("location:http://localhost/facebook/signin.php?error=password_not_matched");
+            header("location:{$baseURL}signin.php?error=password_not_matched");
             exit();
         }     
         else {
             $hased_password=md5($Password);
-            user_input($pdo, $username,$user_email ,$Fullname, $Birthday, $Gender, $Picture, $Bio, $hased_password, $Mobile_number);
+            user_input($pdo, $username,$user_email ,$Fullname, $Birthday, $Gender, $Picture, $Bio, $hased_password, $Mobile_number,$baseURL);
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 } else {
-    header("location:http://localhost/facebook/signin.php");
+    header("location:{$baseURL}signin.php");
 }

@@ -1,7 +1,9 @@
 <?php
 require "../pdo.php";
+require "../global.php";
+session_start();
 // require "../form_handel/signin_form_handel.php";
-function user_input(object $pdo, string $username,string $user_email, string $Fullname, string $Birthday,$Gender, $Picture, string $Bio, string  $hased_password, string $Mobile_number){
+function user_input(object $pdo, string $username,string $user_email, string $Fullname, string $Birthday,$Gender, $Picture, string $Bio, string  $hased_password, string $Mobile_number,$baseURL){
     $query = "INSERT INTO signin (username,user_email, Fullname, Birthday, Gender, Mobile_number, Picture, Password, Bio)
     VALUES (:username,:user_email,:Fullname, :Birthday, :Gender, :Mobile_number, :Picture, :Password, :Bio);";
 
@@ -15,12 +17,13 @@ function user_input(object $pdo, string $username,string $user_email, string $Fu
     $stmt->bindparam(":Picture", $Picture); 
     $stmt->bindparam(":Password", $hased_password);
     $stmt->bindparam(":Bio", $Bio);
-
+    $_SESSION["gmail_token"] = base64_encode($user_email);
     if ($stmt->execute()) {
-        header("location:http://localhost/facebook/profile_viewing/profile_view.php");
+        // header("location:{$baseURL}profile_viewing/profile_view.php?");
+        header("Location:{$baseURL}profile_viewing/login_profile_view.php?useremail={$_SESSION['gmail_token']}");
         exit();
     } else {
-        header("location:http://localhost/facebook/signin.php");
+        header("location:{$baseURL}facebook/signin.php");
         // session_unset();
         // session_destroy();
     }

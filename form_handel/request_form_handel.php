@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "../pdo.php";
+require "../global.php";
 $obj = $_GET["signname"];
 $request_send_from = base64_decode($obj);
 
@@ -39,12 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // $_SESSION["request_email"]=base64_encode($user_email);
         }
     } else {
-        header("location:http://localhost/facebook/profile_viewing/login_profile_view.php?error=user_not_available");
+        header("location:{$baseURL}profile_viewing/login_profile_view.php?error=user_not_available");
         exit;
     }
 }
  else {
-    header("location:http://localhost/facebook/profile_viewing/login_profile_view.php?useremail=" . $_SESSION["updated_mail"] . "&error=user_not_available");
+    header("location:{$baseURL}profile_viewing/login_profile_view.php?useremail=" . $_SESSION["updated_mail"] . "&error=user_not_available");
     exit;
 }
 ?>

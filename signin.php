@@ -9,6 +9,7 @@
 </head>
 <?php
 session_start();
+require "./global.php";
 ?>
 <body>
     <div class="login-container">
@@ -54,11 +55,11 @@ session_start();
             <input type="password" id="user_password" name="C_Password" placeholder="Enter your password">
 
             <button type="submit">Sign Up</button>
-            <a href="http://localhost/facebook/">
+            <a href="<?php echo $baseURL?>">
                 <h6>Already Have An Account?</h6>
             </a>
         </form>
-        <a href="http://localhost/facebook/signin.php"> 
+        <a href="<?php echo $baseURL?>signin.php"> 
         <?php
 require "./error_viewing.php";
 ?> 

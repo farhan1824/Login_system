@@ -1,6 +1,7 @@
 <?php
 echo "Profile view";
 require "../pdo.php";
+require "../global.php";
 $query_01 = "SELECT * FROM signin WHERE singin_id = (SELECT MAX(singin_id) FROM signin)";
 $stmt_01 = $pdo->prepare($query_01);
 if ($stmt_01->execute()) {
@@ -59,7 +60,7 @@ if ($stmt_01->execute()) {
                 <p class="py-1">Moblie_Number:
                     <?php echo $Mobile_number ?>
                 </p>
-                <a href="http://localhost/facebook/signout.php" class="btn btn-primary">Signout</a>
+                <a href="<?php echo $baseURL?>signout.php" class="btn btn-primary">Signout</a>
             </div>
         </div>
     </div>

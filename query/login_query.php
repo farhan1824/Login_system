@@ -1,6 +1,7 @@
 <?php
 require "../pdo.php";
-function user_exists($pdo, $user_email, $user_password) {
+require "../global.php";
+function user_exists($pdo, $user_email, $user_password,$baseURL) {
     $hased_password=md5($user_password);
     $query = "SELECT * FROM signin WHERE user_email = :user_email AND Password=:Password;";
     $stmt = $pdo->prepare($query);
@@ -12,7 +13,7 @@ function user_exists($pdo, $user_email, $user_password) {
             return true; // Make sure to exit after a header redirect
         } else {
             // User does not exist, redirect to the homepage
-            header("Location: http://localhost/facebook/?error=email_invalid");
+            header("Location:{$baseURL}?error=email_invalid");
             exit();
         }
     }

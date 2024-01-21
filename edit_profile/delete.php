@@ -9,6 +9,7 @@
 <body>
 <?php
 require "../pdo.php";
+require "../global.php";
 $usernum=$_GET["gmail"];
 $email=base64_decode($usernum);
 echo $email;
@@ -16,7 +17,7 @@ $query ="DELETE FROM signin WHERE user_email = :user_email";
 $stmt = $pdo->prepare($query);
 $stmt->bindParam(":user_email", $email);
 if($stmt->execute()){
-header("location:http://localhost/facebook/");
+header("location:{$baseURL}");
 }
 
 ?>
