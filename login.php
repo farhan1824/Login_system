@@ -29,6 +29,7 @@ echo '
 ?>
 <a href="<?php echo $baseURL?>
     <?php
-    require_once "./error_viewing.php";
+    require_once "error_viewing.php";
+    
     ?>
 </a>

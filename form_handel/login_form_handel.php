@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // $singin_id  = $_POST["singin_id"];
     $user_email = $_POST["user_email"];
     $user_password = $_POST["user_password"];
-    echo $user_email,$user_password;
+    // echo $user_email,$user_password;
     try {
         if(empty($user_email)||empty($user_password)){
             header("location:{$baseURL}?error=input_empty");

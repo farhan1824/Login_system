@@ -130,7 +130,7 @@ $_SESSION["updated_mail"]=base64_encode($user_email);
             }
         } else {
             // If no new file was uploaded, keep the current image
-            $newPictureName = $current_img;
+            $newPictureName = $_FILES["Picture"];
         }
         
         // Now you can use $newPictureName in your further logic
